@@ -4,8 +4,37 @@ import pandas as pd
 from datetime import date
 from dataframe import outputFiles
 from images import getImages
-from cyclecount_pareto import pareto
 import sys
+from art import text2art
+
+def text_split(text, length):
+	lines = []
+	if (len(text) > length):
+		start = 0
+		finish = length - 1
+		extra = 0
+		while True:
+			while True:
+				line = text[start:finish]
+				if text[finish + 1] == " ":
+					finish = finish + 1
+					line = text[start:finish]
+					lines.append(line)
+					break
+				else:
+					finish = finish + 1
+					extra = extra + 1
+			start = finish
+			finish = finish + 15 - extra
+			extra = 0
+			if len(text) < finish:
+				line = text[start:]
+				lines.append(line)
+				break
+	else:
+		lines.append(text)
+	return text
+
 
 def show_exception_and_exit(exc_type, exc_value, tb):
     import traceback
@@ -14,26 +43,28 @@ def show_exception_and_exit(exc_type, exc_value, tb):
     sys.exit(-1)
 
 def header():
-	print("""====================================================================================================================\n\n
-  ___ ___ _____   ___ _____  _______ _   _ ___ ___ 
- |_ _/ __|_   _| | __|_ _\ \/ |_   _| | | | _ | __|
-  | | (__  | |   | _| | | >  <  | | | |_| |   | _| 
- |___\___| |_|   |_| |___/_/\_\ |_|  \___/|_|_|___|
-                                                   
-  _    _____   _____ _      _   ___ __  __   ___ ___ ___  ___  ___ _____ 
- | |  | __\ \ / | __| |    / | | _ |  \/  | | _ | __| _ \/ _ \| _ |_   _|
- | |__| _| \ V /| _|| |__  | | |  _| |\/| | |   | _||  _| (_) |   / | |  
- |____|___| \_/ |___|____| |_| |_| |_|  |_| |_|_|___|_|  \___/|_|_\ |_|  
-                                                                         
-                                                                                                              
-		\n\n====================================================================================================================\n""")
+	print("========================================================================================")
+	
+	if len(title) < 60:
+		print(text2art(title, font="small"))
+	else:
+		for lin in text_split(title, 16):
+			print(text2art(lin, font="small"))
+
+	print("========================================================================================\n\n")
 
 def signature():
-	print("""
-		Developed by    : Idris, Shahidan
-		Date Developed  : 10/27/2020
-		Program         : ICT Fixture Level 1 PM Report Generation Tool
-		\n""")
+	print("Tool developed by    : Idris, Shahidan (11952926)")
+	print("Tool owner           : {}" . format(owner))
+	print("Date Developed       : 12 November 2020")
+	if len(title) < 60:
+		print("Program              : {}" . format(title))
+	else:
+		print("Program              : {}" . format(text_split(title,60)[0]))
+		i = 1
+		for num in range(i, len(text_split(title,60))):
+			print("                      {}" . format(text_split(title,60)[num]))
+	print("\n")
 
 def clearscreen():
 	os.system("cls")
@@ -53,34 +84,54 @@ sys.excepthook = show_exception_and_exit
 
 today = date.today()
 
-workbook = xlrd.open_workbook("steps_Level1.xlsx", encoding_override="cp1252")
+workbook = xlrd.open_workbook("steps.xlsx", encoding_override="cp1252")
 
 worksheet = workbook.sheet_by_name('Sheet1')
 
 questions = []
 answers = []
 step = ""
+starting_read = 1
+skipping = 0
+imageCount = 0
 
 i = 1
 rows = worksheet.nrows - 1
+
+while True:
+	if worksheet.cell(i, 0).value == "title":
+		title = worksheet.cell(i, 1).value
+		starting_read = starting_read + 1
+	if worksheet.cell(i, 0).value == "owner":
+		owner = worksheet.cell(i, 1).value
+		starting_read = starting_read + 1
+	if i == rows:
+		break
+	i = i + 1
+
 clearscreen()
 header()
 signature()
 
-text = "WWID: "
-questions.append(text)
-ans = input(text)
-answers.append(ans)
+i = 1
 
-text = "Fixture Name: "
-questions.append(text)
-ans = input(text)
-answers.append(ans)
-
-text = "Fixture ID: "
-questions.append(text)
-ans = input(text)
-answers.append(ans)
+while True:
+	if worksheet.cell(i, 0).value == "subheading":
+		text = worksheet.cell(i, 1).value + ": "
+		questions.append(worksheet.cell(i, 1).value)
+		subheading = input(text)
+		answers.append(subheading)
+		starting_read = starting_read + 1
+		skipping = skipping + 1
+	if worksheet.cell(i, 0).value == "details":
+		text = worksheet.cell(i, 1).value + ": "
+		questions.append(worksheet.cell(i, 1).value)
+		answers.append(input(text))
+		starting_read = starting_read + 1
+		skipping = skipping + 1
+	if i == rows:
+		break
+	i = i + 1
 
 questions.append("Date Reported: ")
 answers.append(str(today))
@@ -89,16 +140,21 @@ clearscreen()
 header()
 signature()
 
+i = starting_read
+
 while True:
+	if worksheet.cell(i, 0).value == "image":
+		break
 	if worksheet.cell(i, 0).value == xlrd.empty_cell.value:
-		text = worksheet.cell(i,1).value
+		text = worksheet.cell(i, 1).value
 		print()
 		questions.append(text)
 		processInput(text, answers)
-	else:
+	elif str(int(worksheet.cell(i, 0).value)).isnumeric():
 		text = str(int(worksheet.cell(i, 0).value)) + ". " + worksheet.cell(i, 1).value 
 		print(text)
 		questions.append(text)
+		input()
 		processStep(step, answers)
 	if i == rows:
 		break
@@ -110,23 +166,23 @@ while True:
 	i = i + 1
 
 
+while True:
+	if worksheet.cell(i, 0).value == "image":
+		caption = worksheet.cell(i, 1).value + ": "
+		questions.append(worksheet.cell(i, 1).value)
+		imageCount = imageCount + 1
+	if i == rows:
+		break
+	i = i + 1
+
 clearscreen()
 
 imageList = []
 
-imageList = getImages()
+if imageCount > 0:
+	imageList = getImages(questions, imageCount)
+	answers = answers + imageList
 
-questions.append('Top Cover (1) Before')
-questions.append('Top Cover (1) After')
-questions.append('Top Cover (2) Before')
-questions.append('Top Cover (2) After')
-questions.append('Bottom Cover (1) Before')
-questions.append('Bottom Cover (1) After')
-questions.append('Bottom Cover (2) Before')
-questions.append('Bottom Cover (2) After')
+outputFiles(questions, answers, skipping, imageCount, title, subheading)
 
-answers = answers + imageList
-
-outputFiles(questions, answers)
-
-pareto("cyclecount.csv")
+# pareto("cyclecount.csv")
