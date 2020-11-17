@@ -1,5 +1,5 @@
 # Report Generator Tool
-This tool is a user-customizable report generation tool. It is derived from the ICT Fixture PM Report Generation Tool used at SIMS. This software is built using Python. The tool reads the questions/steps that need to be recorded in the report from an Excel file. The Excel file can be edited by users for any questions/steps they require. The different questions are labeled by the input types, these different input types will display and process the answers of these questions differently.
+This tool is a user-customizable report generation tool. This software is built using Python. The tool reads the questions/steps that need to be recorded in the report from an Excel file. The Excel file can be edited by users for any questions/steps they require. The different questions are labeled by the input types, these different input types will display and process the answers of these questions differently.
 
 ## Installation
 ### Basic usage only
