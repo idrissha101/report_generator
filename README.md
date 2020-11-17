@@ -36,6 +36,7 @@ Should you wish to develop/modify the code, clone the following files/folders:
 - tornado == 6.0.4
 - xlrd == 1.2.0
 - xlwt == 1.3.0
+- art == 5.0
 
 Some of the libraries may not be necessary in developing and generating the executable file for the report generator tool, however, these are what worked for me throughout the development/debugging process. You are strongly encouraged to follow the versions mentioned in the list, as using a different version may cause bugs/issues in developing/running the tool. Most of the libraries can be obtained through a [pip installation](https://pip.pypa.io/en/stable/), else a quick Google search should get you the libraries you need.
 
