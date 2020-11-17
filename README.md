@@ -39,17 +39,17 @@ Should you wish to develop/modify the code, clone the following files/folders:
 
 Some of the libraries may not be necessary in developing and generating the executable file for the report generator tool, however, these are what worked for me throughout the development/debugging process. You are strongly encouraged to follow the versions mentioned in the list, as using a different version may cause bugs/issues in developing/running the tool. Most of the libraries can be obtained through a [pip installation](https://pip.pypa.io/en/stable/), else a quick Google search should get you the libraries you need.
 
-'''
+```
 pip install matplotlib==3.2.2
-'''
+```
 
 You will also need to have an installation of wkhtmltopdf. This can be downloaded and installed from [this link](https://wkhtmltopdf.org/downloads.html).
 
 When running the tool using Python, you would need to run the ***menu.py*** script. Do this on a Command Prompt or Anaconda Prompt.
 
-'''
+```
 python menu.py
-'''
+```
 
 #### If you want to build your own executable file
 The executable file is generated using PyInstaller. Before running the ***pyinstaller*** command to generate the .exe file, we must first create ***menu.spec***. This is needed to specify the additional binaries that ***pyinstaller*** needs to create the .exe file. Refer to [this link](https://pyinstaller.readthedocs.io/en/stable/spec-files.html) for reference on how to create the file. Once the .spec file is created, edit the file in a text editor. In *binaries*, insert a tuple as follows: ('path_to_wkhtmltopdf.exe','.'). The final .spec file should look something like this:
