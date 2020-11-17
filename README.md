@@ -108,15 +108,15 @@ There should only be ONE statement with this input tag. Users should enter the o
 There should only be ONE statement with this input tag. The statement for this input tag is the title of the report to be generated. An example would be a report of a set of procedures for cleaning an equipment. The statement for this input tag would be something like "Cleaning Report". The title is displayed within the header of the program.
 
 ##### subheading (required)
-There should only be ONE statement with this input tag. The statement for this input tag should indicate the subgroup in which this report applies to. Using the example from ***title***, the subheading statement should be "Equipment X". The subheading will be displayed in the HTML and PDF reports as part of the header. From the example mentioned, if the statements earlier were given, the header of the HTML and PDF reports would be "Cleaning Report for Equipment X" (<title> for <subheading>).
+There should only be ONE statement with this input tag. The statement for this input tag asks for the subgroup in which this report applies to. Using the example from ***title***, the subheading statement should be "Equipment". The subheading will be displayed in the HTML and PDF reports as part of the header. From the example mentioned, if the statements earlier were given (***title*** is "Cleaning Report" and ***subheading*** is "Equipment"), and the reporter entered "Equipment X" as the ***subheading*** input, the header of the HTML and PDF reports would be "Cleaning Report for Equipment X" (<title> for <subheading input>).
 
 ##### details (optional)
 There can be multiple statements using this input tag. The statements for this input tag do not appear in the dataframe table in the HTMl and PDF reports, rather they are displayed above the table. This input tag is useful if the user wants to highlight more important information regarding the report (e.g. Name, ID, and Department of the reporter, Shipment Order related to the report) or displaying information that is not directly related to the contents of the report (not part of the steps/procedures)
 
-##### numbers (1, 2, 3...) (optional)
+##### numbers (1, 2, 3...)
 There can be multiple statements using this input tag. Placing a number as an input tag indicates the steps in the report. Statements with numbers as input tags will be displayed in the report as **steps to be completed/done**. In the tool, the reporter would need to **press ENTER** to indicate the step is completed.
 
-##### empty cell (no input tag) (optional)
+##### empty cell (no input tag)
 There can be multiple statements using this input tag. Statements with no input tag are used to request the reporter to input text data. This type of input is usually placed between ***numbers***, needing reporters to give more details after they have completed a step (e.g. Replaced spring for an equipment. How many springs replaced?). 
 
 ##### image (optional)
