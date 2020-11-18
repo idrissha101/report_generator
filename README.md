@@ -3,7 +3,7 @@ This tool is a user-customizable report generation tool. This software is built 
 
 ## Installation
 ### Basic usage only
-For users who want to run the tool (not intending to develop/build the software), clone the following files/folders:
+For users who want to run the tool (not intending to develop/build the software), clone the following files/folders
 - **menu.exe** *(Main Executable File for the program)*
 - **wkhtmltopdf** *(Folder containing executables and binaries to enable HTML-to-PDF conversion)*
 - **steps.xlsx** *(Excel file containing user-defined questions/steps, in which the program reads from)*
@@ -11,7 +11,7 @@ For users who want to run the tool (not intending to develop/build the software)
 Make sure all 3 files/folders are placed in the same directory. The report generator tool is built to detect and use the files/folders at the same directory.
 
 ### For developers
-Should you wish to develop/modify the code, clone the following files/folders:
+Should you wish to develop/modify the code, clone the following files/folders
 - **menu.py** *(Script running the collection of questions/steps from Excel file, displays questions/steps, collects input from reporters, runs the other sub-scripts)*
 - **menu.spec** *(Spec file used to generate executable file for the tool using PyInstaller)*
 - **images.py** *(Script running the GUI to collect images. The images will be rendered at the end of the report)*
