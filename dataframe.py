@@ -24,9 +24,6 @@ def outputFiles(items, answers, skips, imageAmount, head, subhead):
 	df = pd.DataFrame(data)
 	df.drop(df.tail(imageAmount).index,inplace=True)
 
-	df = df.replace('0', 'None')
-	df = df.replace('', 'None')
-
 	path1 = os.getcwd() + "\\" + head + "\\" + subhead
 
 	if not os.path.exists(path1):

@@ -70,16 +70,19 @@ def clearscreen():
 	os.system("cls")
 
 def processStep(answer, listy):
-	answer = input("\nPress Enter if this step is DONE...   ")
-	if answer == "":
+	answer = input("\nEnter Y if step is DONE...   ")
+	if answer == "y" or answer == "Y":
 		listy.append("Done")
 	else:
 		processStep(answer, listy)
 
 def processInput(question, listans):
 	answer = input(question + " ")
-	listans.append(answer)
-
+	if not answer == "":
+		listans.append(answer)
+	else:
+		processInput(question, listans)
+	
 sys.excepthook = show_exception_and_exit
 
 today = date.today()
